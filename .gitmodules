@@ -1,3 +1,6 @@
 [submodule "logstash-output-logio"]
 	path = logstash-output-logio
 	url = https://github.com/yofreke/logstash-output-logio
+[submodule "Log.io"]
+	path = Log.io
+	url = https://github.com/NarrativeScience/Log.io

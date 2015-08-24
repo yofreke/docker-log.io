@@ -4,22 +4,29 @@ MAINTAINER Joe Brown <jbrown@weeby.co>
 
 RUN apt-get update && \
       apt-get install -y python-pip wget default-jre
+RUN apt-get install -y git
 
 # Install supervisord
 RUN pip install supervisor && \
     mkdir /etc/supervisord.d
 
-# Install a log.io
+# Install npm and node
 RUN apt-get update && \
       apt-get install -y npm nodejs
 RUN ln -s `which nodejs` /usr/bin/node
-RUN npm install -g log.io --user "root"
 
 # Install logstash
 RUN wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add - && \
     echo "deb http://packages.elasticsearch.org/logstash/1.5/debian stable main" | tee -a /etc/apt/sources.list
 RUN apt-get update && \
       apt-get install -y logstash
+
+# Clone and install log.io
+RUN git clone https://github.com/yofreke/Log.io && \
+    cd /Log.io && \
+    npm install && \
+    npm run prepublish && \
+    npm link
 
 # Add custom plugin gem
 ADD logstash-output-logio/logstash-output-logio.tar.gz /etc/logstash/
