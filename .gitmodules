@@ -1,0 +1,3 @@
+[submodule "logstash-output-logio"]
+	path = logstash-output-logio
+	url = https://github.com/yofreke/logstash-output-logio
